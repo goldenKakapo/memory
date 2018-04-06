@@ -65,6 +65,7 @@ class GameScene: SKScene {
             n.position = pos
             n.strokeColor = SKColor.red
             self.addChild(n)
+            debugPrint(pos)
         }
     }
     
