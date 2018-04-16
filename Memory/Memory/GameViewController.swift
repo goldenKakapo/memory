@@ -38,24 +38,6 @@ class GameViewController: UIViewController {
                     view.showsFPS = true
                     view.showsNodeCount = true
                 }
-                
-                //ID cartes
-                //Easy (12 cartes) -> 6 ID (0...5)
-                for index in 0...11 {
-                    var has_id:Bool = false
-                    var id:UInt32 = 0
-                    while(has_id==false){
-                        id = arc4random_uniform(6)
-                        var count:Int = 0
-                        if(index>0){
-                            for index2 in 0...index-1 {
-                                if(id_cards[index2]==id) {count=count+1}
-                            }
-                        }
-                        if(count<2){ has_id=true}
-                    }
-                    id_cards.append(Int(id))
-                }
             }
         }
     }

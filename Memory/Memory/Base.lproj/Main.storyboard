@@ -232,6 +232,10 @@
                                     <action selector="button1:" destination="B1n-GT-Z55" eventType="touchUpInside" id="iBe-Xp-tfv"/>
                                 </connections>
                             </button>
+                            <skView contentMode="center" fixedFrame="YES" sceneName="GameScene.sks" translatesAutoresizingMaskIntoConstraints="NO" id="Lwy-8y-2qI">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </skView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Jdb-Sh-cqU"/>
@@ -239,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GBV-3r-Z2z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1607" y="18"/>
+            <point key="canvasLocation" x="1605.5999999999999" y="17.541229385307346"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="pDu-hN-4l6">
