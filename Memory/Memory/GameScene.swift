@@ -19,15 +19,37 @@ class GameScene: SKScene {
     var canGetTouch=true;
     
     var touchedCard:Card?
-   
+    
+    var count_matches = 0
+    var matches = 6
+    
     private var lastUpdateTime : TimeInterval = 0
     override func didMove(to view: SKView) {
-     
+        
         
     }
     
-    //TODO Condició de victoria
+    func addWinText(){
+        let youWin = SKSpriteNode(imageNamed: "youWin.png")
+        youWin.size = CGSize(width: youWin.size.width/2, height: youWin.size.height/2)
+        youWin.position = CGPoint(x: 0, y: 0)
+        self.addChild(youWin)
+    }
     
+    //TODO Condició de victoria
+    func isGameFinished()  {
+        count_matches = count_matches+1
+        if(count_matches==matches) {
+            count_matches=0
+            CardsLoaded = false
+            addWinText()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                self.removeAllChildren()
+                self.cards.removeAll()
+                self.loadCards()
+            }
+        }
+    }
     
     func loadCards(){
         if (!CardsLoaded){
@@ -80,13 +102,13 @@ class GameScene: SKScene {
                 }
                 var position = CGPoint(x: initPoint.x + (curCol * intervaloColumnas), y: initPoint.y - (curRow * intervaloFilas))
                 card.moveCardTo(destination: position)
-               // card.position = CGPoint(x: initPoint.x + (curCol * intervaloColumnas), y: initPoint.y - (curRow * intervaloFilas))
+                // card.position = CGPoint(x: initPoint.x + (curCol * intervaloColumnas), y: initPoint.y - (curRow * intervaloFilas))
             }
             
             CardsLoaded=true;
         }
     }
-   
+    
     
     
     override func sceneDidLoad() {
@@ -94,7 +116,7 @@ class GameScene: SKScene {
         
         loadCards();
         
-
+        
     }
     
     
@@ -107,6 +129,7 @@ class GameScene: SKScene {
             if (card.value==touchedCard?.value){
                 touchedCard=nil
                 canGetTouch=true;
+                isGameFinished()
             }else{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // change 2 to desired number of seconds
                     // Your code with delay
@@ -125,11 +148,11 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { //TODO Crec que aqui hi ha bug, o aqui o a la funcio touched, pero el joc fa coses rares
         if (canGetTouch){
-        let touch = touches.first
+            let touch = touches.first
             let location = touch?.location(in: self)
             let node : SKNode = self.atPoint(location!)
             if node.name == "Card" {
-               let card = node as! Card
+                let card = node as! Card
                 if (!card.revealed){
                     touched(card: card)
                 }
@@ -137,7 +160,7 @@ class GameScene: SKScene {
         }
         
     }
-   
+    
     
     
     override func update(_ currentTime: TimeInterval) {
