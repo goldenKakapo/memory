@@ -33,27 +33,30 @@ class GameScene: SKScene {
         if (!CardsLoaded){
             self.isUserInteractionEnabled = true;
             //Todo, ajustar el init POINT (Marge superior esquerre) i els intervals de files i columnes estiguin en relació al tamany de la pantalla
-            let initPoint = vector2(-130.0, 200.0)
+            var initPoint = vector2(-(Double(self.size.width) / 2.0) , (Double(self.size.height) / 2.0))
             
-            let intervaloFilas = 110.0
-            let intervaloColumnas = 110.0;
+            let intervaloFilas = Double(self.size.height) / 4.0
+            let intervaloColumnas = Double(self.size.width) / 3.0
             
-            let nCols = 3.0
-            var BackgroundSpriteName="6" //TODO (modificar 6 per sprite carta per darrere)
+            initPoint.x -= intervaloColumnas / 2.0
+            initPoint.y += intervaloFilas / 2.0
             
-            var curRow = 0.0;
-            var curCol = -1.0;
+            let nCols = 4.0
+            var BackgroundSpriteName="BackCard" //TODO (modificar 6 per sprite carta per darrere)
+            
+            var curRow = 1.0;
+            var curCol = -0.0;
             
             for index in 0...11 {
                 
                 var idCard = index%6
                 var c=Card(imageNamed: BackgroundSpriteName)
                 
-               
-                c.setScale(1)
+                c.originalWidth = c.size.width
+                c.setScale(0.6)
                 c.value=idCard;
                 c.name="Card"
-                
+                c.anchorPoint = CGPoint(x: 0.5, y: 0.5)
                 
                 cards.append(c)
                 self.addChild(c);
@@ -72,11 +75,12 @@ class GameScene: SKScene {
                 curCol=curCol+1.0
                 
                 if (curCol==nCols){
-                    curCol=0.0;
+                    curCol=1.0;
                     curRow=curRow+1.0
                 }
-                
-                card.position = CGPoint(x: initPoint.x + (curCol * intervaloColumnas), y: initPoint.y - (curRow * intervaloFilas))
+                var position = CGPoint(x: initPoint.x + (curCol * intervaloColumnas), y: initPoint.y - (curRow * intervaloFilas))
+                card.moveCardTo(destination: position)
+               // card.position = CGPoint(x: initPoint.x + (curCol * intervaloColumnas), y: initPoint.y - (curRow * intervaloFilas))
             }
             
             CardsLoaded=true;
@@ -104,7 +108,7 @@ class GameScene: SKScene {
                 touchedCard=nil
                 canGetTouch=true;
             }else{
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // change 2 to desired number of seconds
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // change 2 to desired number of seconds
                     // Your code with delay
                     self.canGetTouch=true;
                     card.hide()
