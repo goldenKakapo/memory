@@ -23,6 +23,8 @@ class GameScene: SKScene {
     var count_matches = 0
     var matches = 6
     
+    var difficulty = 2
+    
     private var lastUpdateTime : TimeInterval = 0
     override func didMove(to view: SKView) {
         
@@ -119,6 +121,15 @@ class GameScene: SKScene {
         
     }
     
+    func swapCards(c:Card, c2:Card){
+        let p1 = c.position
+        let p2 = c2.position
+        
+        c.moveCardTo(destination: p2)
+        c2.moveCardTo(destination: p1)
+    }
+    
+    
     
     func touched(card:Card){
         
@@ -132,11 +143,17 @@ class GameScene: SKScene {
                 isGameFinished()
             }else{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // change 2 to desired number of seconds
+                    
+                    if(self.difficulty == 2){
+                        self.swapCards(c:self.touchedCard!,c2:card)
+                    }
                     // Your code with delay
                     self.canGetTouch=true;
                     card.hide()
                     self.touchedCard?.hide()
                     self.touchedCard=nil;
+                    
+                   
                 }
             }
         }else{
