@@ -52,7 +52,7 @@ class GameScene: SKScene {
     func addWinText(){
         playing=false;
         
-        setScore(increment: tempsRestant * 25)
+        setScore(increment: tempsRestant * 10)
         let youWin = SKSpriteNode(imageNamed: "youWin.png")
         youWin.size = CGSize(width: youWin.size.width/2, height: youWin.size.height/2)
         youWin.position = CGPoint(x: 0, y: 0)
