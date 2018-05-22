@@ -16,7 +16,7 @@ class GameScene: SKScene {
     var score=0;
     var multiplier = 1;
     
-    var time=30;
+    var time=60;
     var timeStarted : TimeInterval = 0
     
     var timeSinceLevelStart=0.0;
@@ -25,7 +25,7 @@ class GameScene: SKScene {
     var textScore = SKLabelNode(fontNamed: "Chalkduster")
     var textMultipier = SKLabelNode(fontNamed: "Chalkduster")
     
-    
+    var tempsRestant = 0;
     
     
     var cards:[Card] = []
@@ -50,6 +50,9 @@ class GameScene: SKScene {
     }
     
     func addWinText(){
+        playing=false;
+        
+        setScore(increment: tempsRestant * 25)
         let youWin = SKSpriteNode(imageNamed: "youWin.png")
         youWin.size = CGSize(width: youWin.size.width/2, height: youWin.size.height/2)
         youWin.position = CGPoint(x: 0, y: 0)
@@ -161,7 +164,7 @@ class GameScene: SKScene {
         
         self.textScore = SKLabelNode(fontNamed: "Chalkduster")
         self.textScore.text = "0"
-        self.textScore.fontSize = 65
+        self.textScore.fontSize = 40
         self.textScore.fontColor = SKColor.green
         self.textScore.position = CGPoint(x: width, y: height)
         
@@ -169,7 +172,7 @@ class GameScene: SKScene {
         
         self.textMultipier = SKLabelNode(fontNamed: "Chalkduster")
         self.textMultipier.text = "x1"
-        self.textMultipier.fontSize = 65
+        self.textMultipier.fontSize = 40
         self.textMultipier.fontColor = SKColor.green
         self.textMultipier.position = CGPoint(x: -width, y: height)
         
@@ -257,9 +260,19 @@ class GameScene: SKScene {
         }
         
         self.timeSinceLevelStart = currentTime - self.timeStarted
+            
+        self.tempsRestant=self.time - Int(self.timeSinceLevelStart)
         
         
-        self.textTemps.text = String(self.time - Int(self.timeSinceLevelStart))
+        self.textTemps.text = String(self.tempsRestant)
+            
+            if (self.tempsRestant==0){
+                self.playing=false
+                
+                //condicio derrota
+            }
+            
+            
         
         
         // Called before each frame is rendered
