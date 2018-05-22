@@ -79,6 +79,7 @@ class GameScene: SKScene {
                 c.originalWidth = c.size.width
                 c.setScale(0.6)
                 c.value=idCard;
+                c.spriteName = String(self.difficulty) + "-" + String((index%6)+1);
                 c.name="Card"
                 c.anchorPoint = CGPoint(x: 0.5, y: 0.5)
                 

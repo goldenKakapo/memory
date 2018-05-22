@@ -14,13 +14,13 @@ class Card : SKSpriteNode
     var value = 0
     var revealed=false;
     var originalWidth = CGFloat(0)
-    
+    var spriteName="";
   
     func show(){
         
         var shrink = SKAction.resize(toWidth: 0, duration: 0.25)
         self.run(shrink) {
-            self.texture=SKTexture(imageNamed: String(self.value+1))
+            self.texture=SKTexture(imageNamed: self.spriteName)
             var grow = SKAction.resize(toWidth: self.originalWidth, duration: 0.25)
             self.run(grow)
         }
