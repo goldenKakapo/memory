@@ -13,6 +13,21 @@ import GameplayKit
 class GameScene: SKScene {
     
     
+    var score=0;
+    var multiplier = 1;
+    
+    var time=30;
+    var timeStarted : TimeInterval = 0
+    
+    var timeSinceLevelStart=0.0;
+    
+    var textTemps = SKLabelNode(fontNamed: "Chalkduster")
+    var textScore = SKLabelNode(fontNamed: "Chalkduster")
+    var textMultipier = SKLabelNode(fontNamed: "Chalkduster")
+    
+    
+    
+    
     var cards:[Card] = []
     var CardsLoaded=false;
     
@@ -23,7 +38,10 @@ class GameScene: SKScene {
     var count_matches = 0
     var matches = 6
     
-    var difficulty = 2
+    
+    //variables billy
+    var playing=true;
+    var difficulty = 0
     
     private var lastUpdateTime : TimeInterval = 0
     override func didMove(to view: SKView) {
@@ -52,6 +70,12 @@ class GameScene: SKScene {
             }
         }
     }
+    
+    func setScore(increment:Int){
+        self.score += increment;
+        self.textScore.text = String(self.score)
+    }
+    
     
     func loadCards(){
         if (!CardsLoaded){
@@ -119,6 +143,38 @@ class GameScene: SKScene {
         
         loadCards();
         
+        let height = self.size.height / 2.0
+        let width = self.size.width / 3.0
+        
+       
+        
+        
+        
+        
+        self.textTemps = SKLabelNode(fontNamed: "Chalkduster")
+        self.textTemps.text = "30"
+        self.textTemps.fontSize = 65
+        self.textTemps.fontColor = SKColor.green
+        self.textTemps.position = CGPoint(x: frame.midX, y: height)
+        
+        addChild(self.textTemps)
+        
+        self.textScore = SKLabelNode(fontNamed: "Chalkduster")
+        self.textScore.text = "0"
+        self.textScore.fontSize = 65
+        self.textScore.fontColor = SKColor.green
+        self.textScore.position = CGPoint(x: width, y: height)
+        
+        addChild(self.textScore)
+        
+        self.textMultipier = SKLabelNode(fontNamed: "Chalkduster")
+        self.textMultipier.text = "x1"
+        self.textMultipier.fontSize = 65
+        self.textMultipier.fontColor = SKColor.green
+        self.textMultipier.position = CGPoint(x: -width, y: height)
+        
+        addChild(self.textMultipier)
+        
         
     }
     
@@ -142,7 +198,18 @@ class GameScene: SKScene {
                 touchedCard=nil
                 canGetTouch=true;
                 isGameFinished()
+                
+                setScore(increment: 100 * self.multiplier)
+                self.multiplier = self.multiplier+1
+                self.textMultipier.text = "x" + String(self.multiplier)
+                
             }else{
+                
+                
+                
+                self.multiplier=1
+                self.textMultipier.text = "x" + String(self.multiplier)
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // change 2 to desired number of seconds
                     
                     if(self.difficulty == 2){
@@ -182,6 +249,19 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
+        
+        if (playing){
+        
+        if (self.timeStarted == 0){
+            self.timeStarted = currentTime;
+        }
+        
+        self.timeSinceLevelStart = currentTime - self.timeStarted
+        
+        
+        self.textTemps.text = String(self.time - Int(self.timeSinceLevelStart))
+        
+        
         // Called before each frame is rendered
         
         // Initialize _lastUpdateTime if it has not already been
@@ -196,5 +276,6 @@ class GameScene: SKScene {
         
         
         self.lastUpdateTime = currentTime
+        }
     }
 }
