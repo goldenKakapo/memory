@@ -12,9 +12,32 @@ import GameplayKit
 
 class GameViewController: UIViewController {
     var id_cards = [Int]()
+    let defaults = UserDefaults.standard
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var userName = defaults.string(forKey: "userName")
+        print(userName)
+        if(userName==nil)
+        {
+            //Popup for userName
+            let alert = UIAlertController(title: "Welcome", message: "Enter User Name", preferredStyle: .alert)
+            alert.addTextField { (textField) in
+                textField.text = "Player 1"
+            }
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
+                self.defaults.set(textField.text,forKey: "userName")
+                userName = self.defaults.string(forKey: "userName")
+                print(userName)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        //self.defaults.removeObject(forKey: "userName")
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
         if let scene = GKScene(fileNamed: "GameScene") {
