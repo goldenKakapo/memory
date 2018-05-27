@@ -10,9 +10,14 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+
+
 class GameViewController: UIViewController {
     var id_cards = [Int]()
     let defaults = UserDefaults.standard
+    
+    
+    
     
     
     override func viewDidLoad() {
@@ -37,6 +42,11 @@ class GameViewController: UIViewController {
             
             self.present(alert, animated: true, completion: nil)
         }
+        
+        
+        
+       
+        
         //self.defaults.removeObject(forKey: "userName")
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.

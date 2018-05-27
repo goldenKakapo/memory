@@ -8,7 +8,7 @@
 
 import SpriteKit
 import GameplayKit
-
+import AVFoundation
 
 class GameScene: SKScene {
     
@@ -42,6 +42,14 @@ class GameScene: SKScene {
     //variables billy
     var playing=true;
     var difficulty = 0
+    
+    var music: AVAudioPlayer?
+    var FX: AVAudioPlayer?
+    
+  
+    
+    
+    
     
     private var lastUpdateTime : TimeInterval = 0
     override func didMove(to view: SKView) {
@@ -79,9 +87,31 @@ class GameScene: SKScene {
         self.textScore.text = String(self.score)
     }
     
+    func playCardFlipFX(){
+        let path = Bundle.main.path(forResource: "flipcard", ofType:"mp3")!
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+           
+                FX = try AVAudioPlayer(contentsOf: url)
+                FX?.play()
+            
+            
+        } catch {
+            // couldn't load file :(
+        }
+        
+    }
+    
     
     func loadCards(){
         if (!CardsLoaded){
+            
+            
+            
+            
+            
+            
             self.isUserInteractionEnabled = true;
             //Todo, ajustar el init POINT (Marge superior esquerre) i els intervals de files i columnes estiguin en relació al tamany de la pantalla
             var initPoint = vector2(-(Double(self.size.width) / 2.0) , (Double(self.size.height) / 2.0))
@@ -179,6 +209,22 @@ class GameScene: SKScene {
         addChild(self.textMultipier)
         
         
+        
+        let path = Bundle.main.path(forResource: "Music", ofType:"mp3")!
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            if (music==nil){
+                music = try AVAudioPlayer(contentsOf: url)
+            //    music?.play()
+            }
+            
+        } catch {
+            // couldn't load file :(
+        }
+        
+       
+        
     }
     
     func swapCards(c:Card, c2:Card){
@@ -197,6 +243,7 @@ class GameScene: SKScene {
         if (touchedCard != nil){
             canGetTouch=false;
             card.show();
+            playCardFlipFX()
             if (card.value==touchedCard?.value){
                 touchedCard=nil
                 canGetTouch=true;
@@ -221,6 +268,7 @@ class GameScene: SKScene {
                     // Your code with delay
                     self.canGetTouch=true;
                     card.hide()
+                    self.playCardFlipFX()
                     self.touchedCard?.hide()
                     self.touchedCard=nil;
                     
@@ -230,6 +278,8 @@ class GameScene: SKScene {
         }else{
             touchedCard=card
             card.show();
+            playCardFlipFX()
+            
         }
     }
     

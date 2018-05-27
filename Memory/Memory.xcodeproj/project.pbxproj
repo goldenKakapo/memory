@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63065D8120BAFDBD0075D7C2 /* Music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63065D8020BAFDBD0075D7C2 /* Music.mp3 */; };
+		63065D8320BB03870075D7C2 /* flipcard.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63065D8220BB03870075D7C2 /* flipcard.mp3 */; };
+		63065D8520BB03C70075D7C2 /* flipcard.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63065D8420BB03C70075D7C2 /* flipcard.mp3 */; };
 		63F818E3208539F1007160DB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F818E2208539F1007160DB /* Card.swift */; };
 		BA010C8B204F18B600DC0489 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA010C8A204F18B600DC0489 /* AppDelegate.swift */; };
 		BA010C8D204F18B700DC0489 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BA010C8C204F18B700DC0489 /* GameScene.sks */; };
@@ -38,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		63065D8020BAFDBD0075D7C2 /* Music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Music.mp3; sourceTree = "<group>"; };
+		63065D8220BB03870075D7C2 /* flipcard.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flipcard.mp3; sourceTree = "<group>"; };
+		63065D8420BB03C70075D7C2 /* flipcard.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flipcard.mp3; sourceTree = "<group>"; };
 		63F818E2208539F1007160DB /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		BA010C87204F18B600DC0489 /* Memory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA010C8A204F18B600DC0489 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,9 +88,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63065D7F20BAFD9F0075D7C2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63065D8220BB03870075D7C2 /* flipcard.mp3 */,
+				63065D8020BAFDBD0075D7C2 /* Music.mp3 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BA010C7E204F18B600DC0489 = {
 			isa = PBXGroup;
 			children = (
+				63065D8420BB03C70075D7C2 /* flipcard.mp3 */,
+				63065D7F20BAFD9F0075D7C2 /* Resources */,
 				BA010C89204F18B600DC0489 /* Memory */,
 				BA010CA4204F18B700DC0489 /* MemoryTests */,
 				BA010CAF204F18B700DC0489 /* MemoryUITests */,
@@ -244,11 +261,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63065D8320BB03870075D7C2 /* flipcard.mp3 in Resources */,
+				63065D8120BAFDBD0075D7C2 /* Music.mp3 in Resources */,
 				BA010C96204F18B700DC0489 /* Main.storyboard in Resources */,
 				BA010C8D204F18B700DC0489 /* GameScene.sks in Resources */,
 				BA010C98204F18B700DC0489 /* Assets.xcassets in Resources */,
 				BA010C9B204F18B700DC0489 /* LaunchScreen.storyboard in Resources */,
 				BA010C8F204F18B700DC0489 /* Actions.sks in Resources */,
+				63065D8520BB03C70075D7C2 /* flipcard.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
