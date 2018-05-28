@@ -55,7 +55,7 @@
                                 <color key="backgroundColor" red="1" green="0.91600664109999996" blue="0.00193524558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Options"/>
+                                <state key="normal" title="Ranking"/>
                                 <connections>
                                     <segue destination="9wC-4J-aqJ" kind="show" id="vOf-U5-vpq"/>
                                 </connections>
@@ -70,10 +70,10 @@
             </objects>
             <point key="canvasLocation" x="-55.200000000000003" y="18.440779610194905"/>
         </scene>
-        <!--View Controller-->
+        <!--Level Selection-->
         <scene sceneID="4uk-iy-PNh">
             <objects>
-                <viewController id="jl8-tu-NvD" sceneMemberID="viewController">
+                <viewController id="jl8-tu-NvD" customClass="LevelSelection" customModule="Memory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IEJ-Vm-rB7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,6 +90,7 @@
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Medium"/>
                                 <connections>
+                                    <action selector="midBut:" destination="jl8-tu-NvD" eventType="touchUpInside" id="u0Y-sh-edz"/>
                                     <segue destination="B1n-GT-Z55" kind="show" id="oPd-KT-JJ9"/>
                                 </connections>
                             </button>
@@ -101,6 +102,7 @@
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Hard"/>
                                 <connections>
+                                    <action selector="hardBut:" destination="jl8-tu-NvD" eventType="touchUpInside" id="SiG-xc-nha"/>
                                     <segue destination="B1n-GT-Z55" kind="show" id="5wd-Vd-9Mg"/>
                                 </connections>
                             </button>
@@ -112,6 +114,7 @@
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Easy"/>
                                 <connections>
+                                    <action selector="easyBut:" destination="jl8-tu-NvD" eventType="touchUpInside" id="maR-a7-Yh2"/>
                                     <segue destination="B1n-GT-Z55" kind="show" id="AZ8-MN-t0B"/>
                                 </connections>
                             </button>
@@ -245,10 +248,10 @@
             </objects>
             <point key="canvasLocation" x="1605.5999999999999" y="17.541229385307346"/>
         </scene>
-        <!--View Controller-->
+        <!--Ranking-->
         <scene sceneID="pDu-hN-4l6">
             <objects>
-                <viewController id="9wC-4J-aqJ" sceneMemberID="viewController">
+                <viewController id="9wC-4J-aqJ" customClass="Ranking" customModule="Memory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hd5-Sl-mQN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -257,20 +260,40 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CAV-8l-AcO">
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.97595531088082899" green="0.61880822140420666" blue="0.080695575455741547" alpha="0.12277178697183098" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOB-rA-43S">
+                                <rect key="frame" x="0.0" y="64" width="375" height="52"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="0.85316072604626958" blue="0.04222530335185759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="vQx-At-QAp"/>
                     </view>
+                    <connections>
+                        <outlet property="nameLabel" destination="gOB-rA-43S" id="cxi-Hz-ZW5"/>
+                        <outlet property="rankingLabel" destination="CAV-8l-AcO" id="zcw-Sh-WTC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cdp-AG-J2X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="761" y="788"/>
+            <point key="canvasLocation" x="760.79999999999995" y="787.55622188905556"/>
         </scene>
     </scenes>
     <resources>
         <image name="background2" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AZ8-MN-t0B"/>
+        <segue reference="5wd-Vd-9Mg"/>
     </inferredMetricsTieBreakers>
 </document>

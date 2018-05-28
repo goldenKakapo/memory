@@ -41,13 +41,13 @@ class GameScene: SKScene {
     
     //variables billy
     var playing=true;
-    var difficulty = 0
-    
+    var difficulty: Int?
+
     var music: AVAudioPlayer?
     var FX: AVAudioPlayer?
     
-  
-    
+    let defaults = UserDefaults.standard
+    var numScores = 0
     
     
     
@@ -67,6 +67,24 @@ class GameScene: SKScene {
         self.addChild(youWin)
     }
     
+    func addLoseText(){
+        playing=false;
+    
+        let youLose = SKSpriteNode(imageNamed: "youLose.png")
+        youLose.size = CGSize(width: youLose.size.width/2, height: youLose.size.height/2)
+        youLose.position = CGPoint(x: 0, y: 0)
+        self.addChild(youLose)
+    }
+    
+    func saveScore(){
+        
+        numScores = self.defaults.integer(forKey: "numScores")
+        numScores = numScores + 1
+        self.defaults.set(numScores, forKey: "numScores")
+        self.defaults.set(self.score, forKey: "score\(numScores)")
+        print(self.defaults.integer(forKey: "score\(numScores)"))
+    }
+    
     //TODO Condició de victoria
     func isGameFinished()  {
         count_matches = count_matches+1
@@ -74,13 +92,30 @@ class GameScene: SKScene {
             count_matches=0
             CardsLoaded = false
             addWinText()
+            saveScore()
             DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                self.playing = true
                 self.removeAllChildren()
                 self.cards.removeAll()
+                self.LoadTexts()
                 self.loadCards()
             }
         }
     }
+    
+    func LoseGame(){
+        count_matches=0
+        CardsLoaded = false
+        addLoseText()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            self.playing = true
+            self.removeAllChildren()
+            self.cards.removeAll()
+            self.LoadTexts()
+            self.loadCards()
+        }
+    }
+    
     
     func setScore(increment:Int){
         self.score += increment;
@@ -136,7 +171,8 @@ class GameScene: SKScene {
                 c.originalWidth = c.size.width
                 c.setScale(0.6)
                 c.value=idCard;
-                c.spriteName = String(self.difficulty) + "-" + String((index%6)+1);
+                let str = "\(self.defaults.integer(forKey: "difficulty"))-\(String((index%6)+1))";
+                c.spriteName = str;
                 c.name="Card"
                 c.anchorPoint = CGPoint(x: 0.5, y: 0.5)
                 
@@ -169,17 +205,11 @@ class GameScene: SKScene {
         }
     }
     
-    
-    
-    override func sceneDidLoad() {
-        
-        
-        loadCards();
-        
+    func LoadTexts(){
         let height = self.size.height / 2.0
         let width = self.size.width / 3.0
         
-       
+        
         
         
         
@@ -208,6 +238,14 @@ class GameScene: SKScene {
         
         addChild(self.textMultipier)
         
+    }
+    
+    override func sceneDidLoad() {
+        self.difficulty = self.defaults.integer(forKey: "difficulty")
+        print("DIFICULT: \(self.difficulty)")
+        loadCards();
+        LoadTexts();
+        
         
         
         let path = Bundle.main.path(forResource: "Music", ofType:"mp3")!
@@ -216,7 +254,8 @@ class GameScene: SKScene {
         do {
             if (music==nil){
                 music = try AVAudioPlayer(contentsOf: url)
-            //    music?.play()
+                music?.play()
+                print("rises")
             }
             
         } catch {
@@ -262,7 +301,7 @@ class GameScene: SKScene {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // change 2 to desired number of seconds
                     
-                    if(self.difficulty == 2){
+                    if(self.defaults.integer(forKey: "difficulty") == 2){
                         self.swapCards(c:self.touchedCard!,c2:card)
                     }
                     // Your code with delay
@@ -320,6 +359,7 @@ class GameScene: SKScene {
                 self.playing=false
                 
                 //condicio derrota
+                LoseGame()
             }
             
             

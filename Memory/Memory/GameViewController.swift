@@ -37,7 +37,8 @@ class GameViewController: UIViewController {
                 let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
                 self.defaults.set(textField.text,forKey: "userName")
                 userName = self.defaults.string(forKey: "userName")
-                print(userName)
+                self.defaults.set(0, forKey: "numScores")
+                //print(userName)
             }))
             
             self.present(alert, animated: true, completion: nil)
