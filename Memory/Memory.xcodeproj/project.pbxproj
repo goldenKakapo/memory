@@ -22,6 +22,7 @@
 		BA010C98204F18B700DC0489 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA010C97204F18B700DC0489 /* Assets.xcassets */; };
 		BA010CA6204F18B700DC0489 /* MemoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA010CA5204F18B700DC0489 /* MemoryTests.swift */; };
 		BA010CB1204F18B700DC0489 /* MemoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA010CB0204F18B700DC0489 /* MemoryUITests.swift */; };
+		BA3A15CF20BD9DAF00775E52 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3A15CE20BD9DAF00775E52 /* MainController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		BA010CAC204F18B700DC0489 /* MemoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA010CB0204F18B700DC0489 /* MemoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryUITests.swift; sourceTree = "<group>"; };
 		BA010CB2204F18B700DC0489 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA3A15CE20BD9DAF00775E52 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				63F818E2208539F1007160DB /* Card.swift */,
 				2CC007BF20BC7E900042443F /* Ranking.swift */,
 				2CC007C120BC8DC60042443F /* LevelSelection.swift */,
+				BA3A15CE20BD9DAF00775E52 /* MainController.swift */,
 			);
 			path = Memory;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA010C91204F18B700DC0489 /* GameScene.swift in Sources */,
+				BA3A15CF20BD9DAF00775E52 /* MainController.swift in Sources */,
 				BA010C93204F18B700DC0489 /* GameViewController.swift in Sources */,
 				BA010C8B204F18B600DC0489 /* AppDelegate.swift in Sources */,
 				2CC007C220BC8DC60042443F /* LevelSelection.swift in Sources */,

@@ -23,26 +23,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var userName = defaults.string(forKey: "userName")
-        print(userName)
-        if(userName==nil)
-        {
-            //Popup for userName
-            let alert = UIAlertController(title: "Welcome", message: "Enter User Name", preferredStyle: .alert)
-            alert.addTextField { (textField) in
-                textField.text = "Player 1"
-            }
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-                let textField = alert!.textFields![0] // Force unwrapping because we know it exists.
-                self.defaults.set(textField.text,forKey: "userName")
-                userName = self.defaults.string(forKey: "userName")
-                self.defaults.set(0, forKey: "numScores")
-                //print(userName)
-            }))
-            
-            self.present(alert, animated: true, completion: nil)
-        }
+        
+       
         
         
         

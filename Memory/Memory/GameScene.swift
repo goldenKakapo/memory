@@ -38,6 +38,8 @@ class GameScene: SKScene {
     var count_matches = 0
     var matches = 6
     
+    var screenSize : CGSize?
+    
     
     //variables billy
     var playing=true;
@@ -48,6 +50,8 @@ class GameScene: SKScene {
     
     let defaults = UserDefaults.standard
     var numScores = 0
+    
+    
     
     
     
@@ -84,6 +88,17 @@ class GameScene: SKScene {
         self.defaults.set(self.score, forKey: "score\(numScores)")
         print(self.defaults.integer(forKey: "score\(numScores)"))
     }
+    func restart(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            self.CardsLoaded=false
+            self.playing = true
+            self.count_matches=0
+            self.removeAllChildren()
+            self.cards.removeAll()
+            self.LoadTexts()
+            self.loadCards()
+        }
+    }
     
     //TODO Condició de victoria
     func isGameFinished()  {
@@ -93,13 +108,7 @@ class GameScene: SKScene {
             CardsLoaded = false
             addWinText()
             saveScore()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                self.playing = true
-                self.removeAllChildren()
-                self.cards.removeAll()
-                self.LoadTexts()
-                self.loadCards()
-            }
+            restart()
         }
     }
     
@@ -107,13 +116,7 @@ class GameScene: SKScene {
         count_matches=0
         CardsLoaded = false
         addLoseText()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            self.playing = true
-            self.removeAllChildren()
-            self.cards.removeAll()
-            self.LoadTexts()
-            self.loadCards()
-        }
+        restart()
     }
     
     
@@ -149,10 +152,10 @@ class GameScene: SKScene {
             
             self.isUserInteractionEnabled = true;
             //Todo, ajustar el init POINT (Marge superior esquerre) i els intervals de files i columnes estiguin en relació al tamany de la pantalla
-            var initPoint = vector2(-(Double(self.size.width) / 2.0) , (Double(self.size.height) / 2.0))
+            var initPoint = vector2(-(Double((screenSize!.width)) / 2.0) , (Double(screenSize!.height) / 2.0))
             
-            let intervaloFilas = Double(self.size.height) / 4.0
-            let intervaloColumnas = Double(self.size.width) / 3.0
+            let intervaloFilas = Double(screenSize!.height) / 4.0
+            let intervaloColumnas = Double(screenSize!.width) / 3.0
             
             initPoint.x -= intervaloColumnas / 2.0
             initPoint.y += intervaloFilas / 2.0
@@ -206,8 +209,8 @@ class GameScene: SKScene {
     }
     
     func LoadTexts(){
-        let height = self.size.height / 2.0
-        let width = self.size.width / 3.0
+        let height = screenSize!.height / 2.05
+        let width = screenSize!.width / 3.0
         
         
         
@@ -240,7 +243,10 @@ class GameScene: SKScene {
         
     }
     
+    
+    
     override func sceneDidLoad() {
+        screenSize = self.size;
         self.difficulty = self.defaults.integer(forKey: "difficulty")
         print("DIFICULT: \(self.difficulty)")
         loadCards();
@@ -248,23 +254,13 @@ class GameScene: SKScene {
         
         
         
-        let path = Bundle.main.path(forResource: "Music", ofType:"mp3")!
-        let url = URL(fileURLWithPath: path)
-        
-        do {
-            if (music==nil){
-                music = try AVAudioPlayer(contentsOf: url)
-                music?.play()
-                print("rises")
-            }
-            
-        } catch {
-            // couldn't load file :(
-        }
+
         
        
         
     }
+    
+    
     
     func swapCards(c:Card, c2:Card){
         let p1 = c.position
@@ -277,7 +273,7 @@ class GameScene: SKScene {
     
     
     func touched(card:Card){
-        
+        restart()
         print(card.value)
         if (touchedCard != nil){
             canGetTouch=false;
